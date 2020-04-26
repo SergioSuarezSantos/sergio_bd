@@ -1,0 +1,28 @@
+body{
+    color:#235A81;
+}
+.redondeado {
+    border-radius: 5px;
+}
+.verde{
+    color:white;
+    background-color:green;
+    border-radius: 5px;
+}
+.rojo{
+    background-color:red;
+    color:white;
+    border-radius: 5px;
+}.rosa{
+    background-color:pink;
+    color:white;
+    border-radius: 5px;
+}.gris{
+    background-color:gray;
+    color:white;
+    border-radius: 5px;
+}.naranja{
+    background-color:orange;
+    color:white;
+    border-radius: 5px;
+}
