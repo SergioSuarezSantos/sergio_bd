@@ -66,6 +66,7 @@
                 <option value="3">Eva</option>
                 <option value="4">Manuel</option>
             </select><br /> <br />
+            <input type="checkbox" name="confirmar"><label>Pulsa si estas de acuerdo</label><br /><br />
             <input type="submit" name="Actualizar" value="Actualizar" class="verde"/>
             <input type="submit" name="Buscar" value="Buscar" class="rojo" />
             <input type="submit" name="Eliminar" value="Eliminar" class="rosa" />
