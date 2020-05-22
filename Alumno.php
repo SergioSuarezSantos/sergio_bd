@@ -58,8 +58,19 @@
                      $this->Monitor = $Monitor;
                   }*/
 
-                  public function __construct(){
-
+                  
+                  public static function Comprobar($IdAlumno){
+                     $conexion = new Conexion();
+                     $consulta = $conexion->prepare('SELECT IdAlumno FROM ' . self::TABLA . ' WHERE IdAlumno = :IdAlumno');
+                     $consulta->bindParam(':IdAlumno', $IdAlumno);
+                     $consulta->execute();
+                     $registro = $consulta->fetch();
+                     if($registro){
+                        return true;
+                     }else{
+                        return false;
+                     }
+                     $conexion = null;
                   }
 
                   public static function  guardar($IdAlumno, $Nombre, $Apellidos, $Telefono, $Actividad, $Categoria, $Monitor){
@@ -92,6 +103,8 @@
                   }*/
                   $conexion = null;
                }
+
+               
 
                public static function BorrarPorId($IdAlumno){
                   $conexion = new Conexion();

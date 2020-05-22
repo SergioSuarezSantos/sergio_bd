@@ -3,79 +3,27 @@
         <title>La tribu</title>
         <link rel="StyleSheet" href="./style.css" type="text/css" />
     </head>
-    <?php
-       require_once 'Alumno.php';
-       if (isset($_POST['Enviar'])){
-        Alumno::guardar($_POST['idalumno'],$_POST['nombre'],$_POST['apellido'],$_POST['contacto'],$_POST['Preferencia'],$_POST['categoria'],$_POST['monitor']);
-        echo "Se agregó correctamente el/la  alumn@ " .$_POST['nombre'];
-       }
-       
-       elseif (isset($_POST['Buscar'])){
-        $resul=Alumno::buscarNombre($_POST['nombre']);
-  foreach ($resul as $f) {
-                    ?><tr>
-                    <p><?php echo $f->getNombre()?> <?php echo $f->getApellidos()?> <?php echo $f->getTelefono()?> <?php echo $f->getActividad()?> <?php echo $f->getCategoria()?> <?php echo $f->getMonitor()?></p>
-                    <tr>
-                        <?php
-                } ?>
-
-           <p> <a href="./index.php">Volver </a></p>
-            <?php
-       }
-       elseif(isset($_POST['Eliminar'])){
-            Alumno::BorrarPorId($_POST['idalumno'],$_POST['nombre']);
-            echo "Has eliminado el/la  alumn@ " .$_POST['nombre'];
-       }
-       elseif(isset($_POST['Actualizar'])){
-        Alumno::ActualizarAlumno($_POST['idalumno'],$_POST['nombre'],$_POST['apellido'],$_POST['contacto'],$_POST['Preferencia'],$_POST['categoria'],$_POST['monitor']);
-        echo "Has Actualizado Correctamente el/la  alumn@ " .$_POST['nombre'];
-   }
-       else{
-
-    ?>
     <body>
-        <form action="#" method="POST">
-            <h1>Bienvenidos a la Tribu</h1>
-            <hr />
-            <h3>Inscripcion</h3>
-            <hr /> 
-            <label>Id de Alumno</label>
-            <input type="text"   class="redondeado" name="idalumno"> <br /><br />
-            <label>Nombre</label>
-            <input type="text"   class="redondeado" name="nombre"> <br /><br />
-            <label>Apellido</label>
-            <input type="text"  class="redondeado" name="apellido"> <br /><br />
-            <label>Contacto de telefono</label>
-            <input type="text" class="redondeado" name="contacto" ><br /><br />
-            <label>Preferencia</label><br />
-            <input type="radio" name="Preferencia" value="1"> <label>Juegos</label><br />
-            <input type="radio" name="Preferencia" value="2"><label>Bailes</label><br />
-            <input type="radio" name="Preferencia" value="3"><label>Karaoke</label><br /><br />
-            <label>Categoría que te gustaría participar</label>
-            <select  class="redondeado" name="categoria"><br />
-            <option selected value="0"> Categoria </option>
-                <option value="1">Niño</option> 
-                <option value="2">Joven</option> 
-                <option value="3">Mayor</option>
-            </select><br /> <br />
-            <label>Monitor</label>
-            <select  class="redondeado" name="monitor"><br />
-            <option selected value="0"> Monitor </option>
-                <option value="1">Raúl</option> 
-                <option value="2">María</option> 
-                <option value="3">Eva</option>
-                <option value="4">Manuel</option>
-            </select><br /> <br />
-            <input type="checkbox" name="confirmar"><label>Pulsa si estas de acuerdo</label><br /><br />
-            <input type="submit" name="Actualizar" value="Actualizar" class="verde"/>
-            <input type="submit" name="Buscar" value="Buscar" class="rojo" />
-            <input type="submit" name="Eliminar" value="Eliminar" class="rosa" />
-            <input type="reset" value="Reiniciar" class="gris" /><br /><br />
-            <input type="submit" name="Enviar" value="Enviar" class="naranja" />
-        </form>
+    <div class="padre">
+        <form action="Inscripcion.php" method="POST">
+        <h1>Animaciones La Tribu</h1>
+        </hr>
+        <p>Holas Buenas, Somo una empresa de animación para todo tipo de público.</p>
+        <p>¿Qué Hacemos?</p>
+        <p>Hacemos juegos, pinta caras, deporte, karaoke y muchas actividades más con el fin de transformar una diversion en recuerdo.</p>
+        <p>¿Quiénes somos?</p>
+        <p>Somos un equipo de personas que unen y desarrollan su talento con el objetivo de crear y vivir momentos extraordinarios.</p>
+        <p>Creemos que en la diversidad está nuestra virtud. La tribu lo conformamos muchas opiniones, motivaciones y
+        gustos heterogéneos. He aquí nuestra riqueza. En la variedad de matices. En la capacidad de entender a otros, de integrarlos y de permitirles tomar partido.</p>
+        <p>Somos cercanos y directos. Nos tomamos las cosas con naturalidad.
+        No nos podemos quedar parados; somos polifacéticos y nos sentimos a gusto poniendo en marcha iniciativas diferentes.</p>
+        <input type="submit" class="verde" value="Inscribirse">
+        </form>    
+        </div>
+        <div class="rsocial">
+		<a href="#"><img src="./img/instagram.png" value="Instagram" class="insta"></a>
+		<a href="#"><img src="./img/youtube.png" value="youtube" class="youtube"></a>
+		<a href="#"><img src="./img/facebook.png" value="Facebook" class="facebook"></a>
+	</div>
     </body>
-    <?php
-       }
-
-    ?>
 </html>
