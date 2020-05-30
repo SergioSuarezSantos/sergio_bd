@@ -17,7 +17,8 @@
         gustos heterogéneos. He aquí nuestra riqueza. En la variedad de matices. En la capacidad de entender a otros, de integrarlos y de permitirles tomar partido.</p>
         <p>Somos cercanos y directos. Nos tomamos las cosas con naturalidad.
         No nos podemos quedar parados; somos polifacéticos y nos sentimos a gusto poniendo en marcha iniciativas diferentes.</p>
-        <input type="submit" class="verde" value="Inscribirse">
+        <input type="submit" class="verde" value="Inscribir Alumno">
+        <a href="RegistroMonitor.php"><input type="button" class="verde" value="Registrar Monitor"></a>
         </form>    
         </div>
         <div class="rsocial">
