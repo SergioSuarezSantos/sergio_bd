@@ -6,57 +6,55 @@
     <?php
        require_once 'Monitor.php';
        if (isset($_POST['Enviar'])){
-           $Monitor=New Monitor();
-           $comprobante=$Monitor->Comprobarmonitor($_POST['idmonitor']);
+           $Monitor=New Monitor($_POST['idmonitor'],$_POST['nombre'],$_POST['apellido'],$_POST['dni'],$_POST['Profesion']);
+           $comprobante=$Monitor->Comprobarmonitor();
         if($comprobante == true){
             echo "El Monitor ya existe";
         }
         else{
-        $Monitor=New Monitor();
-        $guardar=$Monitor->guardarmonitor($_POST['idmonitor'],$_POST['nombre'],$_POST['apellido'],$_POST['dni'],$_POST['Profesion']);
+        $Monitor=New Monitor($_POST['idmonitor'],$_POST['nombre'],$_POST['apellido'],$_POST['dni'],$_POST['Profesion']);
+        $guardar=$Monitor->guardarmonitor();
         echo "Se agregó correctamente el/la  Monitor/a " .$_POST['nombre'];
         ?>
             <p> <a href="./RegistroMonitor.php">Volver </a></p>
             <?php
        }
     }
-    if (isset($_POST['Actualizar'])){
-        $Monitor=New Monitor();
-        $actualizar=$Monitor->Actualizarmonitor($_POST['idmonitor']);
-     if($actualizar == true){
-        echo "Has Actualizado Correctamente el/la  Monitor/ra " .$_POST['nombre'];
-     }
-    }
-
-    elseif(isset($_POST['Eliminar'])){
-        $Monitor=New Monitor();
-        $borrar=$Monitor->BorrarPorId($_POST['idmonitor'],$_POST['nombre']);
-        echo "Has eliminado el/la  monitor/ra " .$_POST['nombre'];
+    elseif (isset($_POST['Actualizar'])){
+        $Monitor=New Monitor($_POST['idmonitor'],$_POST['nombre'],$_POST['apellido'],$_POST['dni'],$_POST['Profesion']);
+        $Monitor->Actualizarmonitor();
         ?>
         <p> <a href="./RegistroMonitor.php">Volver </a></p>
         <?php
+     echo "Has Actualizado Correctamente el/la  Monitor/ra " .$_POST['nombre'];
+    }
 
+    elseif(isset($_POST['Eliminar'])){
+        $Monitor=New Monitor($_POST['idmonitor'],$_POST['nombre'],$_POST['apellido'],$_POST['dni'],$_POST['Profesion']);
+        $borrar=$Monitor->BorrarPorId();
+        ?>
+        <p> <a href="./RegistroMonitor.php">Volver </a></p>
+        <?php
+        echo "Has eliminado Correctamente el/la Monitor/ra con la ID " .$_POST['idmonitor'];
    }
    elseif (isset($_POST['Buscar'])){
     ?>
                  <table border=1>
                  <tr>
-                 <th>Nombre</th><th>Apellidos</th><th>Telefono</th><th>Actividad</th><th>Categoria</th>
+                 <th>Nombre</th><th>Apellidos</th><th>Dni</th><th>Profesion</th>
                  </tr>
     <?php
-    $Monitor=New Monitor();
- $buscar=$Monitor->buscarNombre($_POST['nombre']);
-     foreach ($buscar as $f) {
+    $buscar=Monitor::BuscarMonitor($_POST['nombre']);
              ?>
                  <tr>
-             <td><?php echo $f->getNombre()?></td><td> <?php echo $f->getApellidos()?> <td><?php echo $f->getDni()?> </td><td><?php if($f->getProfesion()==1){echo "Juegos";}elseif($f->getProfesion()==2){echo "Bailes";}elseif($f->getProfesion()==3){echo "Karaoke";}?></td>
+             <td><?php echo  $buscar['Nombre']?></td><td><?php echo  $buscar['Apellido']?></td><td><?php echo  $buscar['Dni']?></td><td><?php echo  $buscar['Profesion']?></td>
                  </tr>
                 
                  <?php
-         } ?>
+          ?>
           </table>
 
-    <p> <a href="./Inscripcion.php">Volver </a></p>
+    <p> <a href="./RegistroMonitor.php">Volver </a></p>
      <?php
 }
 
@@ -81,7 +79,7 @@
             <input type="text" class="redondeado" name="dni" ><br /><br />
             <label>Profesion</label><br />
             <input type="radio" name="Profesion" value="Juegos"> <label>Juegos</label><br />
-            <input type="radio" name="Profesion" value="Bailes"><label>Bailes</label><br />
+            <input type="radio" name="Profesion" value="Bailes" checked><label>Bailes</label><br />
             <input type="radio" name="Profesion" value="Karaoke"><label>Karaoke</label><br /><br />
             
             <input type="checkbox" name="confirmar"><label>Pulsa si estas de acuerdo</label><br /><br />

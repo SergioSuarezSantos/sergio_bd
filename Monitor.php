@@ -37,13 +37,18 @@
                   public function setProfesion($Profesion) {
                      $this->Profesion = $Profesion;
                   }
-                  public function __construct() {
+                  public function __construct($IdMonitor, $Nombre, $Apellido, $Dni, $Profesion) {
+                     $this->IdMonitor = $IdMonitor;
+                     $this->Nombre = $Nombre;
+                     $this->Apellido = $Apellido;
+                     $this->Dni = $Dni;
+                     $this->Profesion = $Profesion;
                   }
 
-                  public function Comprobarmonitor($IdMonitor){
+                  public function Comprobarmonitor(){
                      $conexion = new Conexion();
                      $consulta = $conexion->prepare('SELECT IdMonitor FROM ' . self::TABLA . ' WHERE IdMonitor = :IdMonitor');
-                     $consulta->bindParam(':IdMonitor', $IdMonitor);
+                     $consulta->bindParam(':IdMonitor', $this->IdMonitor);
                      $consulta->execute();
                      $registro = $consulta->fetch();
                      if($registro){
@@ -54,53 +59,56 @@
                      $conexion = null;
                   }
 
-                  public function  guardarmonitor($IdMonitor, $Nombre, $Apellido, $Dni, $Profesion){
+                  public function guardarmonitor(){
                      $conexion = new Conexion();
                      
                         $consulta = $conexion->prepare('INSERT INTO ' . self::TABLA .' (IdMonitor, Nombre, Apellido, Dni, Profesion) VALUES(:IdMonitor, :Nombre, :Apellido, :Dni, :Profesion)');
-                        $consulta->bindParam(':IdMonitor', $IdMonitor);
-                        $consulta->bindParam(':Nombre', $Nombre);
-                        $consulta->bindParam(':Apellido', $Apellido);
-                        $consulta->bindParam(':Dni', $Dni);
-                        $consulta->bindParam(':Profesion', $Profesion);
+                        $consulta->bindParam(':IdMonitor', $this->IdMonitor);
+                        $consulta->bindParam(':Nombre', $this->Nombre);
+                        $consulta->bindParam(':Apellido', $this->Apellido);
+                        $consulta->bindParam(':Dni', $this->Dni);
+                        $consulta->bindParam(':Profesion', $this->Profesion);
                         $consulta->execute();
                         
                      
                      $conexion = null;
                   }
 
-                  public function buscarNombre($parametro){
+                  public static function BuscarMonitor($Nombre){
                      $conexion = new Conexion();
-                     $consulta = $conexion->prepare("SELECT * FROM " . self::TABLA . " WHERE Nombre LIKE '%".$parametro."%' ");
+                     $consulta = $conexion->prepare('SELECT * FROM ' . self::TABLA . ' WHERE Nombre = :Nombre');
+                     $consulta->bindParam(':Nombre', $Nombre);
                      $consulta->execute();
-                     $consulta->setFetchMode('Monitor');
-                     return $obj = $consulta->fetchAll();
-                    /* $obj = $consulta->fetchAll();
-                     foreach ($obj as $f) {
-                         echo $f->titulo."\n";
-                     }*/
+                     $registro = $consulta->fetch();
+                     if($registro){
+                     return ($registro);
+                     }else{
+                        return false;
+                     }
                      $conexion = null;
                   }
 
-                  public function BorrarPorId($IdMonitor){
+                  public function BorrarPorId(){
                      $conexion = new Conexion();
-                     $consulta = $conexion->prepare('DELETE FROM ' . self::TABLA . ' WHERE IdMonitor = :IdMonitor');
-                     $consulta->bindParam(':IdMonitor',$IdMonitor);
+                     $consulta = $conexion->prepare('DELETE FROM ' . self::TABLA .' WHERE IdMonitor = :IdMonitor');
+                     $consulta->bindParam(':IdMonitor', $this->IdMonitor);
                      $consulta->execute();
                      $conexion = null;
+                     
                   }
                   
-                  public function ActualizarMonitor($IdMonitor, $Nombre, $Apellido, $Dni, $Profesion){
+                  public function ActualizarMonitor(){
                      $conexion = new Conexion();
-                     if($IdMonitor){
-                        $consulta = $conexion->prepare('UPDATE ' . self::TABLA .' SET Nombre = :Nombre, Apellidos = :Apellidos, Dni = :Dni, Profesion = :Profesion, WHERE IdMonitor = :IdMonitor');
-                        $consulta->bindParam(':IdMonitor', $IdMonitor);
-                        $consulta->bindParam(':Nombre', $Nombre);
-                        $consulta->bindParam(':Apellido', $Apellido);
-                        $consulta->bindParam(':Dni', $Dni);
-                        $consulta->bindParam(':Profesion', $Profesion);
+                     if($this->IdMonitor){
+                        $consulta = $conexion->prepare('UPDATE ' . self::TABLA .' SET Nombre = :Nombre, Apellido = :Apellido, Dni = :Dni, Profesion = :Profesion WHERE IdMonitor = :IdMonitor');
+                        $consulta->bindParam(':IdMonitor', $this->IdMonitor);
+                        $consulta->bindParam(':Nombre', $this->Nombre);
+                        $consulta->bindParam(':Apellido', $this->Apellido);
+                        $consulta->bindParam(':Dni', $this->Dni);
+                        $consulta->bindParam(':Profesion', $this->Profesion);
                            $consulta->execute();
                         $conexion = null;
+                        
                      }}
 
                 }
